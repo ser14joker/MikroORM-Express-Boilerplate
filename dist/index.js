@@ -13,23 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@mikro-orm/core");
-const path_1 = __importDefault(require("path"));
-const constants_1 = require("./constants");
 const Post_1 = require("./entities/Post");
+const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const orm = yield core_1.MikroORM.init({
-        migrations: {
-            path: path_1.default.join(__dirname, "./migrations"),
-            pattern: /^[\w-]+\d+\.ts$/,
-        },
-        entities: [Post_1.Post],
-        dbName: "lireddit",
-        user: "postgres",
-        password: "admin",
-        type: "postgresql",
-        debug: !constants_1.__prod__,
-        port: 5432,
-    });
+    const orm = yield core_1.MikroORM.init(mikro_orm_config_1.default);
     const post = orm.em.create(Post_1.Post, { title: "my second post" });
     yield orm.em.persistAndFlush(post);
     const posts = yield orm.em.find(Post_1.Post, {});
