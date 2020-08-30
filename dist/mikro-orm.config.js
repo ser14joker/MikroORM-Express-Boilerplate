@@ -9,7 +9,7 @@ const constants_1 = require("./constants");
 exports.default = {
     migrations: {
         path: path_1.default.join(__dirname, "./migrations"),
-        pattern: /^[\w-]+\d+\.ts$/,
+        pattern: /^[\w-]+\d+\.[tj]s$/,
     },
     entities: [Post_1.Post],
     dbName: "lireddit",
